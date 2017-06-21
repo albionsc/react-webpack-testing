@@ -41,6 +41,7 @@ node {
                     newImage.withRun('-P --link selenium-node') {application ->
                         def seleniumServerPort = seleniumHub.port(4444).split(':')[1];
                         def appPort = application.port(3000).split(':')[1];
+                        sleep 120
                         sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' --baseUrl=http://localhost:' + appPort + ' wdio.conf.js';
                     }
                 }
