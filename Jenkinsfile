@@ -35,12 +35,16 @@ node {
         docker.withRegistry('https://registry.hub.docker.com', 'albionsc_dockerhub_creds') {
             def newImage = docker.build "albionsc/react-webpack-app:${env.BRANCH_NAME}-${env.BUILD_NUMBER}";
             // newImage.push();
-            newImage.withRun('-P') {petclinic -> 
-                def externalPort = petclinic.port(3000);
-                println 'App Exposed on  ' + externalPort
-                sleep 30;
+            
+            docker.image('selenium/standalone-chrome:latest').withRun('-P') {selenium ->
+                def seleniumServerPort = selenium.port(4444);
+                sh './node_modules/.bin/wdio --port=' + seleniumServerPort + ' wdio.conf.js';
+                // newImage.withRun('-P') {petclinic -> 
+                //     def externalPort = petclinic.port(3000);
+                //     println 'App Exposed on  ' + externalPort
+                //     sleep 30;
+                // }
             }
-
         }
         
     }
