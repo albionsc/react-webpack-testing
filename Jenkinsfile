@@ -32,5 +32,16 @@ node {
     
     stage('Build') {
         sh 'npm run build';
+        docker.withRegistry('https://registry.hub.docker.com', 'albionsc_dockerhub_creds') {
+            def newImage = docker.build "albionsc/react-webpack-app:${env.BRANCH_NAME}-${env.BUILD_NUMBER}";
+            // newImage.push();
+            newImage.withRun {petclinic -> 
+                def externalPort = petclinic.port(3000);
+                println 'App Exposed on ${externalPort}'
+                sleep 30;
+            }
+
+        }
+        
     }
 }
