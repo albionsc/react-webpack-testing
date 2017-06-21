@@ -36,14 +36,11 @@ node {
             def newImage = docker.build "albionsc/react-webpack-app:${env.BRANCH_NAME}-${env.BUILD_NUMBER}";
             // newImage.push();
             
-            docker.image('selenium/standalone-chrome:latest').withRun('-P') {selenium ->
-                def seleniumServerPort = selenium.port(4444);
-                sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' wdio.conf.js';
-                // newImage.withRun('-P') {petclinic -> 
-                //     def externalPort = petclinic.port(3000);
-                //     println 'App Exposed on  ' + externalPort
-                //     sleep 30;
-                // }
+            docker.image('selenium/hub:latest').withRun('-P --name selenium-hub -e GRID_TIMEOUT=10') {seleniumHub ->
+                docker.image('selenium/node-chrome:latest').withRun('-P --link selenium-hub:hub') {seleniumNode ->
+                    def seleniumServerPort = seleniumHub.port(4444).split(':')[1];
+                    sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' wdio.conf.js';
+                }
             }
         }
         
