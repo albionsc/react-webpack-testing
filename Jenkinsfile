@@ -23,7 +23,7 @@ node {
             
             sh 'npm run lint:ci || true';
             step([$class: 'CheckStylePublisher',
-                pattern: '**/eslint.xml',
+                pattern: '**/reports/eslint/eslint.xml',
                 failedTotalAll : '0'
             ])
         }
