@@ -52,7 +52,6 @@
     "coverageDirectory": "reports/coverage",
     "collectCoverageFrom": [
       "app/**/*.js",
-      "server/**/*.js",
       "!app/src/index.js"
     ],
     "coverageThreshold": {
