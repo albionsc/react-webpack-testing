@@ -38,7 +38,7 @@ node {
             
             docker.image('selenium/standalone-chrome:latest').withRun('-P') {selenium ->
                 def seleniumServerPort = selenium.port(4444);
-                sh './node_modules/.bin/wdio --port=' + seleniumServerPort + ' wdio.conf.js';
+                sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' wdio.conf.js';
                 // newImage.withRun('-P') {petclinic -> 
                 //     def externalPort = petclinic.port(3000);
                 //     println 'App Exposed on  ' + externalPort
