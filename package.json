@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "test:ci": "jest --coverage",
-    "start": "node webpack.dev.server.js"
+    "start": "node webpack.dev.server.js",
+    "lint:ci": "./node_modules/eslint/bin/eslint.js -f checkstyle -o ./reports/eslint/eslint.xml app/**/*.js"
   },
   "author": "Gavin Dent",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "html-webpack-plugin": "^2.28.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
+    "jest-junit": "^1.5.1",
     "raw-loader": "^0.5.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -44,11 +46,16 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "jest": {
+    "coverageReporters": [
+      "cobertura"
+    ],
+    "coverageDirectory": "reports/coverage",
     "collectCoverageFrom": [
       "app/**/*.js",
       "server/**/*.js",
       "!app/src/index.js"
     ],
+    "testResultsProcessor": "./node_modules/jest-junit",
     "moduleFileExtensions": [
       "js",
       "jsx"
@@ -62,5 +69,8 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
+  },
+  "jest-junit": {
+        "output": "reports/junit/junit.xml"
   }
 }

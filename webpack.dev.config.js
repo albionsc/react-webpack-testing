@@ -16,7 +16,7 @@ module.exports = {
           {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
-            use: ['babel-loader', 'eslint-loader']
+            use: ['babel-loader']
           },
           { 
               test: /\.(jpe|jpg|png|woff|woff2|eot|ttf|svg)(\?.*$|$)/, 
