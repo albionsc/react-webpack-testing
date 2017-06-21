@@ -7,6 +7,6 @@ import App from './App';
 describe('<App />', () => {
   it('renders a single <p>', () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.find('span')).to.have.length(1);
+    expect(wrapper.find('p')).to.have.length(1);
   });
 });
