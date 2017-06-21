@@ -1,6 +1,7 @@
 node {
     
     stage('Prepare') {
+        deleteDir()
         checkout scm;
         def nodeHome = tool 'NodeJS_6';
         env.PATH="${env.PATH}:${nodeHome}/bin";
