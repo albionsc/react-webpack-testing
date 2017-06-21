@@ -9,6 +9,23 @@ node {
     
     
     stage('QA') {
-        sh 'npm run test:ci'
+        try{
+            sh 'npm run test:ci'
+        } finally {
+            step([$class: 'JUnitResultArchiver', testResults: '**/reports/junit/junit.xml'])
+            step([
+                $class: 'CoberturaPublisher',
+                coberturaReportFile: '**/reports/coverage/cobertura-coverage.xml',
+                onlyStable: false,
+                failUnhealthy: true,
+                failUnstable: true
+            ])
+            
+            sh 'npm run lint:ci || true';
+            step([$class: 'CheckStylePublisher',
+                pattern: '**/eslint.xml',
+                failedTotalAll : '0'
+            ])
+        }
     }
 }
