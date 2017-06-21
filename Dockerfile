@@ -5,7 +5,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Copy resources
-COPY ./dist /usr/src/app/
+COPY ./build /usr/src/app/
 RUN NODE_ENV=production npm install
 
 EXPOSE 3000
