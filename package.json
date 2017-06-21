@@ -20,6 +20,7 @@
     "babel-loader": "^7.1.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "chai": "^4.0.2",
     "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
@@ -43,7 +44,6 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "jest": {
-
     "collectCoverageFrom": [
       "app/**/*.js",
       "server/**/*.js",
