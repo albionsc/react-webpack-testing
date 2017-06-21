@@ -28,8 +28,9 @@ node {
                 failedTotalAll : '0'
             ])
         }
-    },
+    }
+    
     stage('Build') {
-        sh 'npm run build'
+        sh 'npm run build';
     }
 }
