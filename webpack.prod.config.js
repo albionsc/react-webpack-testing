@@ -10,7 +10,7 @@ module.exports = {
 
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, "dist/app")
+    path: path.resolve(__dirname, "build/dist/app")
   },
   module: {
       rules: [
@@ -53,11 +53,11 @@ module.exports = {
       new CopyWebpackPlugin([
         {
           from: 'server',
-          to: path.resolve(__dirname, 'dist/server')
+          to: path.resolve(__dirname, 'build/server')
         },
         {
           from: 'package.json',
-          to: path.resolve(__dirname, 'dist/package.json')
+          to: path.resolve(__dirname, 'build/package.json')
         }
       ])
   ]
