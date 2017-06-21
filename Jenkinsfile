@@ -37,12 +37,10 @@ node {
             
             
             docker.image('selenium/hub:latest').withRun('-P --name selenium-hub -e GRID_TIMEOUT=10') {seleniumHub ->
-                docker.image('selenium/node-chrome:latest').withRun('-P --link selenium-hub:hub --name selenium-node') {seleniumNode ->
-                    newImage.withRun('-P --link selenium-node') {application ->
+                newImage.withRun('-P --name react-app') {application ->
+                    docker.image('selenium/node-chrome:latest').withRun('-P --link selenium-hub:hub --link react-app:react-app --name selenium-node') {seleniumNode ->
                         def seleniumServerPort = seleniumHub.port(4444).split(':')[1];
-                        def appPort = application.port(3000).split(':')[1];
-                        sleep 120
-                        sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' --baseUrl=http://localhost:' + appPort + ' wdio.conf.js';
+                        sh 'node ./node_modules/.bin/wdio --port=' + seleniumServerPort + ' --baseUrl=http://react-app:3000 wdio.conf.js';
                     }
                 }
             }

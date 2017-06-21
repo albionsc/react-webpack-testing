@@ -1,8 +1,7 @@
 describe('my awesome website', function() {
     it('should do some chai assertions', function() {
         browser.url('/');
-        var outerHTML = browser.getHTML('body');
-        console.log(outerHTML);
-        browser.getTitle().should.be.equal('WebdriverIO - WebDriver bindings for Node.js');
+        browser.getHTML('body').should.contain('Congratulations, you now have a useless React application');
+        browser.getTitle().should.be.equal('React Webpack Application');
     });
 });
